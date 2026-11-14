@@ -1,0 +1,13 @@
+services:
+  quora-mcp:
+    build: .
+    container_name: quora-mcp
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0 # must listen on all interfaces inside the container; needs MCP_SECRET or LOCAL_ONLY=1
+    ports:
+      - "127.0.0.1:8787:8787" # published on loopback only (local clients or a reverse proxy on the host)
+    shm_size: "512mb"
+    mem_limit: "1g"
+    init: true
